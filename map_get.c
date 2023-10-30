@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/10/29 21:35:36 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:14:55 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,10 @@ static int	ft_get_dimensions(char *file, int *width, int *height)
 		{
 			split_line = ft_split(line, ' ');
 			while (split_line[*width])
-			{
 				(*width)++;
-			}
 			ft_free_str_tab(split_line);
 		}
 		(*height)++;
-		printf("height: %d\n", *height);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -83,9 +80,9 @@ static void	ft_set_point(t_point *point, char *value, int x, int y)
 	}
 	else
 		point->col = 0xFFFFFF;
-	point->z = ft_atoi(value);
-	point->x = x;
-	point->y = y;
+	point->z = (double)ft_atoi(value);
+	point->x = (double)x;
+	point->y = (double)y;
 }
 
 static void	insert_values(t_map *map, char *file)

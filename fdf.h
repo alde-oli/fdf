@@ -6,14 +6,14 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/10/29 21:31:28 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/10/30 17:57:20 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include <mlx.h>
+# include "./mlx/mlx.h"
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -26,10 +26,10 @@
 
 typedef struct s_point
 {
-	int	x;
-	int	y;
-	int	z;
-	int	col;
+	double			x;
+	double			y;
+	double			z;
+	int				col;
 }	t_point;
 
 typedef struct s_map
@@ -59,6 +59,10 @@ char	*ft_strjoin(char *buf, char *to_add);
 t_map	*ft_get_map(char *file);
 //map_utils
 void	ft_free_map(t_map *map);
+//transformations
+void	ft_rotate(t_point *point, double angle, char axis);
+void	ft_translate(t_point *point, double distance, char axis);
+void	ft_scale(t_point *point, double factor, char axis);
 //utils
 char	**ft_split(char const *s, char c);
 void	*ft_free_str_tab(char **strs);

@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/10/29 21:41:53 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:29:56 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv)
 		x = 0;
 		while (x < map->width)
 		{
-			printf("(%d, %d, %d, %X) ", map->points[y][x].x, map->points[y][x].y,
+			printf("(%3d, %3d, %3d, %6X) ", map->points[y][x].x, map->points[y][x].y,
 				map->points[y][x].z, map->points[y][x].col);
 			x++;
 		}
