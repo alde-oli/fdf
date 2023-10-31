@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/10/31 16:35:56 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/10/31 16:48:52 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ t_map	*ft_get_map(char *file, int screen_w, int screen_h);
 //map_utils
 void	ft_free_map(t_map *map);
 void	ft_center_map(t_map *map);
+//draw_map
+void	ft_draw_map(t_map *map);
 //projection
 void	ft_project(t_map *map, double angle);
 //transfo_unit
