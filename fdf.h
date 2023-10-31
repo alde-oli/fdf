@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/10/31 07:54:56 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/10/31 16:35:56 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@
 #  define BUFFER_SIZE 32
 # endif
 
+typedef struct s_mlx
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+}	t_mlx;
+
 typedef struct s_point
 {
 	double			x;
@@ -42,6 +48,7 @@ typedef struct s_map
 	int		height;
 	int		screen_w;
 	int		screen_h;
+	t_mlx	*mlx;
 }	t_map;
 
 typedef struct s_file
@@ -65,10 +72,16 @@ t_map	*ft_get_map(char *file, int screen_w, int screen_h);
 //map_utils
 void	ft_free_map(t_map *map);
 void	ft_center_map(t_map *map);
+//projection
+void	ft_project(t_map *map, double angle);
+//transfo_unit
+void	ft_rotate_u(t_point *point, double angle, char axis);
+void	ft_translate_u(t_point *point, double mv_x, double mv_y, double mv_z);
+void	ft_scale_u(t_point *point, double factor, char axis);
 //transformations
-void	ft_rotate(t_point *point, double angle, char axis);
-void	ft_translate(t_point *point, double mv_x, double mv_y, double mv_z);
-void	ft_scale(t_point *point, double factor, char axis);
+void	ft_rotate(t_map *map, double angle, char axis);
+void	ft_translate(t_map *map, double mv_x, double mv_y, double mv_z);
+void	ft_scale(t_map *map, double factor, char axis);
 //utils
 char	**ft_split(char const *s, char c);
 void	*ft_free_str_tab(char **strs);
