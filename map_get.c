@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/10/30 15:14:55 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/10/31 09:13:02 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,7 @@ static void	insert_values(t_map *map, char *file)
 	close(fd);
 }
 
-
-t_map	*ft_get_map(char *file)
+t_map	*ft_get_map(char *file, int screen_w, int screen_h)
 {
 	t_map	*map;
 	int		width;
@@ -125,6 +124,11 @@ t_map	*ft_get_map(char *file)
 	map = ft_new_map(width, height);
 	if (!map)
 		return (NULL);
+	map->screen_w = screen_w;
+	map->screen_h = screen_h;
 	insert_values(map, file);
+	ft_center_map(map);
+	ft_rotate
+	ft_proj_map(map, ajouter parametres de vue);
 	return (map);
 }

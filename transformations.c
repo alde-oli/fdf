@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix.c                                           :+:      :+:    :+:   */
+/*   transformations.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:25:29 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/10/30 17:56:11 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/10/31 07:22:53 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void	ft_rotate(t_point *point, double angle, char axis)
 	}
 }
 
-void	ft_translate(t_point *point, double distance, char axis)
+void	ft_translate(t_point *point, double mv_x, double mv_y, double mv_z)
 {
-	if (axis == 'x')
-		point->x += distance;
-	else if (axis == 'y')
-		point->y += distance;
-	else if (axis == 'z')
-		point->z += distance;
+	if (mv_x)
+		point->x += mv_x;
+	if (mv_y)
+		point->y += mv_y;
+	if (mv_z)
+		point->z += mv_z;
 }
 
 void	ft_scale(t_point *point, double factor, char axis)
