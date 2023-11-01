@@ -6,84 +6,50 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 15:01:42 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/10/31 16:47:33 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/01 15:56:20 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	ft_init_drawing(t_point *start, t_point *end,
-		t_point *delta, t_point *step)
-{
-	delta->x = abs(end->proj_x - start->proj_x);
-	delta->y = abs(end->proj_y - start->proj_y);
-	if (start->proj_x < end->proj_x)
-		step->x = 1;
-	else
-		step->x = -1;
-	if (start->proj_y < end->proj_y)
-		step->y = 1;
-	else
-		step->y = -1;
-}
-
-static void	ft_update_pos(t_point *cur, t_point step, t_point delta, int *err)
-{
-	int	e2;
-
-	e2 = *err;
-	if (e2 > -delta.x)
-	{
-		*err -= delta.y;
-		cur->proj_x += step.x;
-	}
-	if (e2 < delta.y)
-	{
-		*err += delta.x;
-		cur->proj_y += step.y;
-	}
-}
-
-static int	ft_get_color(t_point *start, t_point *end,
-	t_point current, t_point delta)
+int	ft_gradient(int start, int end, double percentage)
 {
 	int		red;
 	int		green;
 	int		blue;
-	double	ratio;
 
-	if (delta.x > delta.y)
-		ratio = fabs((double)(current.proj_x - start->proj_x) / delta.x);
-	else
-		ratio = fabs((double)(current.proj_y - start->proj_y) / delta.y);
-	red = (int)((1 - ratio) * ((start->col >> 16) & 0xFF)
-			+ ratio * ((end->col >> 16) & 0xFF));
-	green = (int)((1 - ratio) * ((start->col >> 8) & 0xFF)
-			+ ratio * ((end->col >> 8) & 0xFF));
-	blue = (int)((1 - ratio) * (start->col & 0xFF) + ratio * (end->col & 0xFF));
-	return ((red << 16) | (green << 8) | blue);
+	red = (1 - percentage) * (start >> 16 & 0xFF)
+		+ percentage * (end >> 16 & 0xFF);
+	green = (1 - percentage) * (start >> 8 & 0xFF)
+		+ percentage * (end >> 8 & 0xFF);
+	blue = (1 - percentage) * (start & 0xFF) + percentage * (end & 0xFF);
+	return (red << 16 | green << 8 | blue);
 }
 
-void	ft_draw_line(t_point *start, t_point *end, t_mlx *mlx)
+void	ft_draw_line(t_map *map, t_point p1, t_point p2)
 {
-	t_point	delta;
-	t_point	step;
-	t_point	current;
-	int		error;
+	int		steps;
+	double	x_inc;
+	double	y_inc;
+	double	x;
+	double	y;
 
-	ft_init_drawing(start, end, &delta, &step);
-	current = *start;
-	if (delta.x > delta.y)
-		error = delta.x / 2;
+	if (abs(p2.proj_x - p1.proj_x) > abs(p2.proj_y - p1.proj_y))
+		steps = abs(p2.proj_x - p1.proj_x);
 	else
-		error = -delta.y / 2;
-	while (1)
+		steps = abs(p2.proj_y - p1.proj_y);
+	x_inc = (p2.proj_x - p1.proj_x) / (double)steps;
+	y_inc = (p2.proj_y - p1.proj_y) / (double)steps;
+	x = p1.proj_x;
+	y = p1.proj_y;
+	while (steps >= 0)
 	{
-		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, current.proj_x,
-			current.proj_y, ft_get_color(start, end, current, delta));
-		if (current.proj_x == end->proj_x && current.proj_y == end->proj_y)
-			break ;
-		ft_update_pos(&current, step, delta, &error);
+		if (x >= 0 && x < map->screen_w && y >= 0 && y < map->screen_h)
+			my_mlx_pixel_put(&map->img, x, y, ft_gradient(p1.col, p2.col,
+					(x - p1.proj_x) / (p2.proj_x - p1.proj_x)));
+		x += x_inc;
+		y += y_inc;
+		steps--;
 	}
 }
 
@@ -99,9 +65,9 @@ void	ft_draw_map(t_map *map)
 		while (j < map->width)
 		{
 			if (j < map->width - 1)
-				ft_draw_line(&(map->points[i][j]), &(map->points[i][j + 1]), map->mlx);
+				ft_draw_line(map, map->points[i][j], map->points[i][j + 1]);
 			if (i < map->height - 1)
-				ft_draw_line(&(map->points[i][j]), &(map->points[i + 1][j]), map->mlx);
+				ft_draw_line(map, map->points[i][j], map->points[i + 1][j]);
 			j++;
 		}
 		i++;

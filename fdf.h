@@ -6,14 +6,14 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/10/31 16:48:52 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/01 10:04:00 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include "./mlx/mlx.h"
+# include "mlx.h"
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -25,10 +25,19 @@
 #  define BUFFER_SIZE 32
 # endif
 
+typedef struct s_data
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_data;
+
 typedef struct s_mlx
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
+	void	*mlx;
+	void	*win;
 }	t_mlx;
 
 typedef struct s_point
@@ -48,7 +57,8 @@ typedef struct s_map
 	int		height;
 	int		screen_w;
 	int		screen_h;
-	t_mlx	*mlx;
+	t_mlx	mlx;
+	t_data	img;
 }	t_map;
 
 typedef struct s_file
@@ -72,6 +82,8 @@ t_map	*ft_get_map(char *file, int screen_w, int screen_h);
 //map_utils
 void	ft_free_map(t_map *map);
 void	ft_center_map(t_map *map);
+//mlx_utils
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 //draw_map
 void	ft_draw_map(t_map *map);
 //projection

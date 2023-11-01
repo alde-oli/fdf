@@ -1,33 +1,27 @@
 NAME = fdf
 
-CC = cc
+CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra
-MINILIBX_FLAGS	= -lmlx -lXext -lX11
 
 SRC = $(wildcard *.c)
 
-OBJS = $(SRC:.c=.o)
-	
-%.o: %.c
-	$(CC) $(CFLAGS) -Imlx -c $< -o $@
-
-libmlx:
-	make -C ./mlx
+OBJS = $(addprefix obj/, $(SRC:.c=.o))
 
 all : $(NAME)
 
-${NAME}: libmlx ${OBJS}
-	${CC} -framework OpenGL -framework AppKit -Imlx ${OBJS} -Lmlx -lmlx -o ${NAME}
+obj/%.o: %.c
+	@mkdir -p obj
+	$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
+
+$(NAME): $(OBJS)
+	$(CC) $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 clean :
-	rm -rf $(OBJS)
-	make clean -C ./mlx
+	rm -rf obj/
 
 fclean : clean
 	rm -rf $(NAME)
-	make clean -C ./mlx
-	rm -rf ./mlx
 
 re : fclean all
 

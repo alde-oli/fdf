@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:25:29 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/10/31 10:38:25 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/01 09:19:42 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,3 @@ void	ft_scale_u(t_point *point, double factor, char axis)
 	else if (axis == 'z')
 		point->z *= factor;
 }
-

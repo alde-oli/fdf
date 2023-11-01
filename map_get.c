@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/10/31 17:39:54 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/01 09:20:59 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,5 @@ t_map	*ft_get_map(char *file, int screen_w, int screen_h)
 	map->screen_w = screen_w;
 	map->screen_h = screen_h;
 	insert_values(map, file);
-	//ft_center_map(map);
 	return (map);
 }
