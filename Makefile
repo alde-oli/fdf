@@ -1,6 +1,6 @@
 NAME = fdf
 
-CC = cc
+CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra
 MINILIBX_FLAGS	= -lmlx -lXext -lX11

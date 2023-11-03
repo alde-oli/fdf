@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/02 16:14:42 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/03 11:47:10 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ typedef struct s_point
 typedef struct s_map
 {
 	t_point	**points;
+	t_point	**copy;
 	int		width;
 	int		height;
 	int		screen_w;
 	int		screen_h;
+	char	proj;
 	t_mlx	mlx;
 	t_data	img;
 }	t_map;
@@ -89,11 +91,20 @@ t_map	*ft_get_map(char *file, int screen_w, int screen_h);
 void	ft_free_map(t_map *map);
 void	ft_minmax(t_point *min, t_point *max, t_point *current);
 double	ft_get_scale_factor(t_map *map);
+void	ft_map_copy(t_point **tab_from,
+			t_point **tab_to, int width, int height);
 //
 //draw_map
 void	ft_draw_map(t_map *map);
+void	ft_push_map(t_map *map);
 //projection
-void	ft_project(t_map *map, char proj);
+double	ft_calculate_focal_length(t_map *map);
+void	ft_project_tri(t_point *pt, int screen_w, int screen_h);
+void	ft_project_persp(t_point *pt, int screen_w,
+			int screen_h, double focal_length);
+void	ft_project_iso(t_point *pt, int screen_w, int screen_h);
+void	ft_project_ortho(t_point *pt, int screen_w, int screen_h);
+void	ft_project(t_map *map);
 //
 //transfo_unit
 void	ft_rotate_u(t_point *point, double angle, char axis);
@@ -104,10 +115,14 @@ void	ft_rotate(t_map *map, double angle, char axis);
 void	ft_translate(t_map *map, double mv_x, double mv_y, double mv_z);
 void	ft_scale(t_map *map, double x, double y, double z);
 void	ft_center(t_map *map);
+void	ft_my_little_poney(t_map *map);
 //key_transformations
 void	ft_key_rotate(int keycode, t_map *map);
 void	ft_key_translate(int keycode, t_map *map);
 void	ft_key_scale(int keycode, t_map *map);
+void	ft_key_reset(t_map *map);
+void	ft_key_save(t_map *map);
+void	ft_key_switch_proj(t_map *map, int keycode);
 //
 //errors
 int		ft_error(t_map *map, char name);

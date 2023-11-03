@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/02 14:30:45 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/03 10:10:03 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_free_map(t_map *map)
 			while (y < map->height)
 			{
 				free(map->points[y]);
+				free(map->copy[y]);
 				y++;
 			}
 			free(map->points);
@@ -66,4 +67,22 @@ double	ft_get_scale_factor(t_map *map)
 	if (scale_y < scale_x)
 		return (scale_y * 0.8);
 	return (scale_x * 0.8);
+}
+
+void	ft_map_copy(t_point **tab_from, t_point **tab_to, int width, int height)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < height)
+	{
+		j = 0;
+		while (j < width)
+		{
+			tab_to[i][j] = tab_from[i][j];
+			j++;
+		}
+		i++;
+	}
 }

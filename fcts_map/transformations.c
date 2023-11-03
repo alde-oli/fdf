@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 10:33:51 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/02 12:31:47 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/03 09:56:22 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_rotate(t_map *map, double angle, char axis)
 		}
 		i++;
 	}
+	ft_push_map(map);
 }
 
 void	ft_translate(t_map *map, double mv_x, double mv_y, double mv_z)
@@ -46,6 +47,7 @@ void	ft_translate(t_map *map, double mv_x, double mv_y, double mv_z)
 		}
 		i++;
 	}
+	ft_push_map(map);
 }
 
 static void	ft_scale_axis(t_map *map, double factor, char axis)
@@ -77,6 +79,7 @@ void	ft_scale(t_map *map, double x, double y, double z)
 	ft_scale_axis(map, x, 'x');
 	ft_scale_axis(map, y, 'y');
 	ft_scale_axis(map, z, 'z');
+	ft_push_map(map);
 }
 
 void	ft_center(t_map *map)
@@ -100,4 +103,5 @@ void	ft_center(t_map *map)
 		i++;
 	}
 	ft_translate(map, -(min.x + max.x) / 2, -(min.y + max.y) / 2, 0);
+	ft_push_map(map);
 }

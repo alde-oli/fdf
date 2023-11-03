@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/02 13:52:14 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/03 10:07:12 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,15 @@ static t_map	*ft_new_map(int width, int height)
 	new_map->width = width;
 	new_map->height = height;
 	new_map->points = malloc(height * sizeof(t_point *));
-	if (!new_map->points)
+	new_map->copy = malloc(height * sizeof(t_point *));
+	if (!new_map->points || !new_map->copy)
 		return (NULL);
 	i = 0;
 	while (i < height)
 	{
 		new_map->points[i] = malloc(width * sizeof(t_point));
-		if (!new_map->points[i])
+		new_map->copy[i] = malloc(width * sizeof(t_point));
+		if (!new_map->points[i] || !new_map->copy[i])
 		{
 			ft_free_map(new_map);
 			return (NULL);
@@ -128,9 +130,12 @@ t_map	*ft_get_map(char *file, int s_w, int s_h)
 	map->screen_w = s_w;
 	map->screen_h = s_h;
 	insert_values(map, file);
+	map->proj = 'i';
 	scale_f = ft_get_scale_factor(map);
+	ft_start(map);
 	ft_scale(map, scale_f, scale_f, scale_f * 0.6);
 	ft_center(map);
 	ft_rotate(map, 180, 'x');
+	ft_map_copy(map->points, map->copy, map->width, map->height);
 	return (map);
 }

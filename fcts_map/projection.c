@@ -6,13 +6,13 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:08:54 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/02 16:23:50 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:33:49 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void	ft_project_point(t_point *pt, int screen_w, int screen_h)
+void	ft_project_iso(t_point *pt, int screen_w, int screen_h)
 {
 	int	iso_x;
 	int	iso_y;
@@ -23,34 +23,29 @@ void	ft_project_point(t_point *pt, int screen_w, int screen_h)
 	pt->proj_y = screen_h / 2 - iso_y;
 }
 
-void	ft_project_point_ortho(t_point *pt, int screen_w, int screen_h)
+void	ft_project_ortho(t_point *pt, int screen_w, int screen_h)
 {
 	pt->proj_x = pt->x + screen_w / 2;
 	pt->proj_y = screen_h / 2 - pt->y;
 }
 
-void	ft_proj_perspective(t_point *pt, int screen_w, int screen_h, double fov)
+static void	ft_projection_type(t_point *pt, t_map *map, char proj)
 {
-	double	scale;
-
-	scale = fov / (100 + pt->z);
-	pt->proj_x = pt->x * scale + screen_w / 2;
-	pt->proj_y = screen_h / 2 - (pt->y * scale);
+	if (proj == 'i')
+		ft_project_iso(pt, map->screen_h, map->screen_w);
+	if (proj == 'o')
+		ft_project_ortho(pt, map->screen_h, map->screen_w);
+	if (proj == 't')
+		ft_project_tri(pt, map->screen_h, map->screen_w);
 }
 
-void	ft_proj_stereo(t_point *pt, int screen_w, int screen_h, double radius)
-{
-	double	denom;
+///////	marrant mais pt	////
+//
+//	if (proj == 'p')
+//		ft_project_persp(pt, map->screen_h, map->screen_w,
+//			ft_calculate_focal_length(map));
 
-	denom = radius - pt->z;
-	if (denom == 0)
-		denom = 0.0001;
-	pt->proj_x = (radius * pt->x / denom) + screen_w / 2;
-	pt->proj_y = screen_h / 2 - (radius * pt->y / denom);
-}
-
-
-void	ft_project(t_map *map, char proj)
+void	ft_project(t_map *map)
 {
 	int	i;
 	int	j;
@@ -61,18 +56,7 @@ void	ft_project(t_map *map, char proj)
 		j = 0;
 		while (j < map->width)
 		{
-			if (proj == 'i')
-				ft_project_point(&(map->points[i][j]),
-					map->screen_w, map->screen_h);
-			if (proj == 'o')
-				ft_project_point_ortho(&(map->points[i][j]),
-					map->screen_w, map->screen_h);
-			if (proj == 'p')
-				ft_proj_perspective(&(map->points[i][j]),
-					map->screen_w, map->screen_h, 90);
-			if (proj == 's')
-				ft_proj_stereo(&(map->points[i][j]),
-					map->screen_w, map->screen_h, 50);
+			ft_projection_type(&(map->points[i][j]), map, map->proj);
 			j++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/02 14:09:05 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/03 15:02:50 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	ft_start(t_map *map)
 	map->img = img;
 	if (!map->mlx.mlx || !map->mlx.win || !map->img.img || !map->img.addr)
 		ft_error(map, 's');
+	mlx_put_image_to_window(map->mlx.mlx, map->mlx.win, map->img.img, 0, 0);
 }
 
 int	ft_end(t_map *map)
