@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 11:35:56 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/03 14:23:50 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/05 23:20:49 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	ft_shift_color(int current_color)
 	return (((red & 0xFF) << 16) | ((green & 0xFF) << 8) | (blue & 0xFF));
 }
 
-void	ft_my_little_poney(t_map *map)
+static void	ft_color_fade(t_map *map)
 {
 	int	i;
 	int	j;
@@ -50,14 +50,41 @@ void	ft_my_little_poney(t_map *map)
 		while (j < map->width)
 		{
 			if (map->points[i][j].col == 0XFFFFFF)
-				map->points[i][j].col = 0XFF0000;
+				map->points[i][j].col = 0X88FF00;
 			else
 				map->points[i][j].col = ft_shift_color(map->points[i][j].col);
 			j++;
 		}
 		i++;
 	}
-	ft_rotate(map, 10, 'x');
-	ft_rotate(map, -8, 'y');
-	ft_rotate(map, 5, 'z');
+}
+
+static int	ft_rand_sign(void)
+{
+	if (rand() % 2 == 0)
+		return (1);
+	else
+		return (-1);
+}
+
+double	ft_rand_scale(void)
+{
+	double	scale;
+
+	scale = rand() % 104 * ft_rand_sign();
+	if ((scale > -97 && scale < 97))
+		return (ft_rand_scale());
+	return (scale / 100);
+}
+
+void	ft_my_little_poney(t_map *map)
+{
+	ft_color_fade(map);
+
+	ft_rotate(map, rand() % 15 * ft_rand_sign(), 'x');
+	ft_rotate(map, rand() % 15 * ft_rand_sign(), 'y');
+	ft_rotate(map, rand() % 15 * ft_rand_sign(), 'z');
+	ft_translate(map, rand() % 15 * ft_rand_sign(),
+		rand() % 15 * ft_rand_sign(), rand() % 15 * ft_rand_sign());
+	ft_scale(map, ft_rand_scale(), ft_rand_scale(), ft_rand_scale());
 }

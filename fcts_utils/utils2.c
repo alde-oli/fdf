@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/02 11:13:34 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/05 16:02:03 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,49 @@ int	ft_atoi_hexa(char *str)
 		i++;
 	}
 	return (n);
+}
+
+void	*ft_calloc(int size)
+{
+	void	*ptr;
+	int		i;
+
+	ptr = malloc(size);
+	if (!ptr)
+		return (NULL);
+	i = 0;
+	while (i < size)
+	{
+		((char *)ptr)[i] = 0;
+		i++;
+	}
+	return (ptr);
+}
+
+char	*ft_strrchr(char *s, char c)
+{
+	size_t	i;
+
+	i = ft_strlen(s);
+	while (i > 0 && s[i] != c)
+	{
+		i--;
+	}
+	if (s[i] == (char)c)
+		return (&s[i]);
+	else
+		return (NULL);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1 && s2 && s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	if (s1 && s2)
+		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	else
+		return (1);
 }

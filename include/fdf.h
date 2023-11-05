@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/03 11:47:10 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/05 21:39:36 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define PI 3.14159265358979323846
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
+#  define BUFFER_SIZE 1
 # endif
 
 typedef struct s_data
@@ -69,16 +69,17 @@ typedef struct s_file
 	char	*buf;
 }	t_file;
 
-//gnl_functions
+//gnl
 char	*get_next_line(int fd);
-char	*ft_read_line(char *buf, int fd);
-char	*ft_crop_buf(char *buf);
-char	*ft_get_cropped(char *buf);
-//gln_utils
-int		ft_find(char *s, int mod);
-char	*ft_calloc(int size);
-char	*ft_strndup(char *src, int max);
-char	*ft_strjoin(char *buf, char *to_add);
+char	*ft_gen_line(char *stock, int fd);
+char	*ft_crop_line(char *stock);
+char	*ft_get_cropped(char *stock);
+char	*ft_free(char *str);
+//gnl_utils
+int		ft_find_nl(char *str);
+char	*ft_strjoin(char *stock, char *tmp);
+int		ft_strlen(char *str);
+char	*ft_strndup(char *stock, int i);
 //
 //mlx_utils
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -87,12 +88,16 @@ int		ft_end(t_map *map);
 //
 //map
 t_map	*ft_get_map(char *file, int screen_w, int screen_h);
+void	insert_values(t_map *map, char *file);
+t_map	*ft_new_map(t_map *map, int width, int height);
+int		ft_get_dimensions(char *file, int *width, int *height);
 //map_utils
 void	ft_free_map(t_map *map);
 void	ft_minmax(t_point *min, t_point *max, t_point *current);
 double	ft_get_scale_factor(t_map *map);
 void	ft_map_copy(t_point **tab_from,
 			t_point **tab_to, int width, int height);
+void	ft_check_file(char *file);
 //
 //draw_map
 void	ft_draw_map(t_map *map);
@@ -123,15 +128,20 @@ void	ft_key_scale(int keycode, t_map *map);
 void	ft_key_reset(t_map *map);
 void	ft_key_save(t_map *map);
 void	ft_key_switch_proj(t_map *map, int keycode);
+int		ft_change_map(t_map *map);
 //
 //errors
-int		ft_error(t_map *map, char name);
+void	ft_error(t_map *map, char name);
 //
 //utils
+int		ft_count_words(const char *s, char c);
 char	**ft_split(char const *s, char c);
 void	*ft_free_str_tab(char **strs);
 char	*ft_strchr(char *s, int c);
 int		ft_atoi(char *str);
 int		ft_atoi_hexa(char *str);
+void	*ft_calloc(int size);
+char	*ft_strrchr(char *s, char c);
+int		ft_strcmp(char *s1, char *s2);
 
 #endif

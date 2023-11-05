@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:32:21 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/05 22:00:23 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/05 22:45:40 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_keypress(int keycode, void *map)
 		ft_key_save(map);
 	if (keycode == 32)
 		ft_center(map);
-	if (keycode >= 49 && keycode <= 51)
+	if (keycode >= 49 && keycode <= 52)
 		ft_key_switch_proj(map, keycode);
 	if (keycode == 167)
 		ft_my_little_poney(map);
@@ -71,13 +71,17 @@ int	main(int argc, char **argv)
 {
 	t_map	*map;
 
-	if (argc != 2)
+	if (!(argc == 2 || argc == 4))
 	{
-		write(2, "Error, too many arguments\n", 27);
-		return (0);
+		write(2, "Error, please add just one file as argument,\n", 46);
+		write(2, "or two more arguments as window dimentions\n", 44);
+		return (1);
 	}
 	ft_check_file(argv[1]);
-	map = ft_get_map(argv[1], 1000, 1000);
+	if (argc == 2)
+		map = ft_get_map(argv[1], 1000, 1000);
+	else
+		map = ft_get_map(argv[1], ft_atoi(argv[2]), ft_atoi(argv[3]));
 	if (!map)
 		ft_error(map, 'a');
 	mlx_hook(map->mlx.win, 17, 0, ft_end, map);

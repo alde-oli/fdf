@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/03 15:02:50 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/05 16:01:15 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,12 @@ void	ft_start(t_map *map)
 
 int	ft_end(t_map *map)
 {
-	ft_free_map(map);
-	mlx_destroy_image(map->mlx.mlx, map->img.img);
-	mlx_clear_window(map->mlx.mlx, map->mlx.win);
-	mlx_destroy_window(map->mlx.mlx, map->mlx.win);
-	exit(0);
+	if (map)
+	{
+		mlx_destroy_image(map->mlx.mlx, map->img.img);
+		mlx_clear_window(map->mlx.mlx, map->mlx.win);
+		mlx_destroy_window(map->mlx.mlx, map->mlx.win);
+		ft_free_map(map);
+	}
+	exit(EXIT_SUCCESS);
 }

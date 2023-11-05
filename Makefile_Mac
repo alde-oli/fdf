@@ -12,21 +12,25 @@ OBJS = $(SRC:.c=.o)
 OBJS_BONUS = $(SRC_BONUS:.c=.o)
 	
 %.o: %.c
-	$(CC) $(CFLAGS) -g -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	@$(CC) $(CFLAGS) -Imlx -c $< -o $@
+
+libmlx:
+	@make -C ./mlx
 
 all : $(NAME)
 
-bonus : $(OBJS_BONUS)
-	$(CC) $(OBJS_BONUS) -g -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+bonus: libmlx ${OBJS_BONUS}
+	@${CC} -framework OpenGL -framework AppKit -Imlx ${OBJS_BONUS} -Lmlx -lmlx -o ${NAME}
 
-${NAME}: ${OBJS}
-	$(CC) $(OBJS) -g -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+${NAME}: libmlx ${OBJS}
+	@${CC} -framework OpenGL -framework AppKit -Imlx ${OBJS} -Lmlx -lmlx -o ${NAME}
 
 clean :
-	@rm -rf $(OBJS) $(OBJS_BONUS)
+	@rm -rf $(OBJS)
 
 fclean : clean
 	@rm -rf $(NAME)
+	@make clean -C ./mlx
 
 re : fclean all
 

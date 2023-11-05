@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/02 11:13:29 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/05 15:56:52 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_strchr(char *s, int c)
 	return (0);
 }
 
-static int	count_words(const char *s, char c)
+int	ft_count_words(const char *s, char c)
 {
 	int	count;
 
@@ -54,7 +54,7 @@ static int	count_words(const char *s, char c)
 	return (count);
 }
 
-static char	*next_word(char **s, char c)
+static char	*ft_next_word(char **s, char c)
 {
 	char	*start;
 	char	*word;
@@ -69,7 +69,7 @@ static char	*next_word(char **s, char c)
 		(*s)++;
 		len++;
 	}
-	word = (char *)malloc(len + 1);
+	word = ft_calloc((len + 1) * sizeof(char));
 	if (!word)
 		return (NULL);
 	(*s) = start;
@@ -89,15 +89,15 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	words = count_words(s, c);
-	tab = (char **)malloc((words + 1) * sizeof(char *));
+	words = ft_count_words(s, c);
+	tab = ft_calloc((words + 1) * sizeof(char *));
 	if (!tab)
 		return (NULL);
 	tab_start = tab;
 	str = (char *)s;
 	while (words--)
 	{
-		*tab = next_word(&str, c);
+		*tab = ft_next_word(&str, c);
 		if (!(*tab))
 			return (ft_free_str_tab(tab_start));
 		tab++;

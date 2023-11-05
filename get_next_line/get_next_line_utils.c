@@ -6,90 +6,76 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 16:32:52 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/02 11:13:42 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/05 11:24:50 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int	ft_find(char *s, int mod)
+int	ft_find_nl(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (str[i])
 	{
-		if (!mod && s[i] == '\n')
-			return (i + 1);
+		if (str[i] == '\n')
+			return (i);
 		i++;
 	}
-	if (mod)
-		return (i);
 	return (-1);
 }
 
-char	*ft_calloc(int size)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	char	*str;
+	int		j;
 	int		i;
-
-	str = (char *) malloc(size * sizeof(char));
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (i < size)
-	{
-		str[i] = '\0';
-		i++;
-	}
-	return (str);
-}
-
-char	*ft_strndup(char *src, int max)
-{
-	char	*dest;
 	int		len;
-	int		i;
+	char	*dest;
 
-	i = 0;
-	len = ft_find(src, 1);
-	if (len > max)
-		len = max;
-	dest = ft_calloc(len + 1);
+	len = ft_strlen(s1) + ft_strlen(s2) + 1;
+	dest = ft_calloc(len * sizeof(char));
 	if (!dest)
-		return (NULL);
-	while (i < len)
+		return (ft_free(s1));
+	i = 0;
+	while (s1[i])
 	{
-		dest[i] = src[i];
+		dest[i] = s1[i];
 		i++;
 	}
+	j = 0;
+	while (s2[j])
+	{
+		dest[i + j] = s2[j];
+		j++;
+	}
+	ft_free(s1);
 	return (dest);
 }
 
-char	*ft_strjoin(char *buf, char *to_add)
+int	ft_strlen(char *str)
 {
-	char	*dest;
-	int		i;
-	int		j;
+	int	i;
 
-	if (!buf || !to_add)
-		return (NULL);
 	i = 0;
-	j = ft_find(buf, 1) + ft_find(to_add, 1);
-	dest = ft_calloc(j + 1);
+	while (str[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strndup(char *src, int i)
+{
+	int		j;
+	char	*dest;
+
 	j = 0;
+	dest = ft_calloc((i + 2) * sizeof(char));
 	if (!dest)
 		return (NULL);
-	while (buf[i])
+	while (j <= i && src[j])
 	{
-		dest[i] = buf[i];
-		i++;
-	}
-	while (to_add[j])
-	{
-		dest[i + j] = to_add[j];
+		dest[j] = src[j];
 		j++;
 	}
-	free(buf);
 	return (dest);
 }

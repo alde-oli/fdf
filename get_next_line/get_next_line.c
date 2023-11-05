@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:55:49 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/02 11:13:45 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/05 11:24:27 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,73 +17,93 @@ char	*get_next_line(int fd)
 	static t_file	f;
 	char			*line;
 
-	if (BUFFER_SIZE < 1 || fd < 0)
+	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
 	if (fd != f.fd)
 	{
 		if (f.buf)
-			free(f.buf);
+			f.buf = ft_free(f.buf);
 		f.fd = fd;
 	}
-	f.buf = ft_read_line(f.buf, fd);
+	f.buf = ft_gen_line(f.buf, fd);
 	if (!f.buf)
 		return (NULL);
-	line = ft_crop_buf(f.buf);
+	line = ft_crop_line(f.buf);
 	f.buf = ft_get_cropped(f.buf);
 	return (line);
 }
 
-char	*ft_read_line(char *buf, int fd)
+char	*ft_gen_line(char *buf, int fd)
 {
-	char	*to_add;
-	int		nb_read;
+	int		count;
+	char	*tmp;
 
-	nb_read = 1;
 	if (!buf)
-		buf = ft_calloc(1);
-	to_add = ft_calloc(BUFFER_SIZE + 1);
-	if (!buf || !to_add)
+		buf = ft_calloc(1 * sizeof(char));
+	tmp = ft_calloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!tmp || !buf)
 		return (NULL);
-	while (nb_read > 0)
+	count = 1;
+	while (count > 0)
 	{
-		nb_read = read(fd, to_add, BUFFER_SIZE);
-		if (nb_read < 0)
+		count = read(fd, tmp, BUFFER_SIZE);
+		if (count == -1)
 		{
-			free(buf);
-			free(to_add);
+			tmp = ft_free(tmp);
+			buf = ft_free(buf);
 			return (NULL);
 		}
-		to_add[nb_read] = '\0';
-		buf = ft_strjoin(buf, to_add);
-		if (ft_find(buf, 0) > -1)
+		tmp[count] = '\0';
+		buf = ft_strjoin(buf, tmp);
+		if (ft_find_nl(tmp) != -1)
 			break ;
 	}
-	free(to_add);
+	tmp = ft_free(tmp);
 	return (buf);
 }
 
-char	*ft_crop_buf(char *buf)
+char	*ft_crop_line(char *buf)
 {
-	int		nl;
+	int		i;
+	char	*str;
 
-	nl = ft_find(buf, 0);
-	if (nl == -1)
-		return (ft_strndup(buf, ft_find(buf, 1)));
-	return (ft_strndup(buf, ft_find(buf, 0)));
+	if (buf[0] == '\0')
+		return (NULL);
+	i = ft_find_nl(buf);
+	if (i == -1)
+		i = ft_strlen(buf);
+	str = ft_strndup(buf, i);
+	if (!str)
+		return (NULL);
+	return (str);
 }
 
 char	*ft_get_cropped(char *buf)
 {
+	int		i;
+	int		j;
 	char	*new_buf;
-	int		nl;
 
-	nl = ft_find(buf, 0);
-	if (nl == -1)
-	{
-		free(buf);
+	if (!buf)
 		return (NULL);
+	i = ft_find_nl(buf);
+	if (i == -1)
+		return (ft_free(buf));
+	new_buf = ft_calloc((ft_strlen(buf + i) + 1) * sizeof(char));
+	if (!new_buf)
+		return (ft_free(buf));
+	j = 0;
+	while (buf[++i])
+	{
+		new_buf[j++] = buf[i];
 	}
-	new_buf = ft_strndup(buf + nl, ft_find(buf, 1) - ft_find(buf, 0));
-	free(buf);
+	new_buf[j] = '\0';
+	buf = ft_free(buf);
 	return (new_buf);
+}
+
+char	*ft_free(char *str)
+{
+	free(str);
+	return (NULL);
 }
