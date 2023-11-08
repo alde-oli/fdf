@@ -19,7 +19,7 @@ $(NAME): $(OBJS)
 	@$(CC) $(OBJS) -g -Lmlx_linux -lmlx_Linux -L/usr/lib $(INCLUDES) -lXext -lX11 -lm -lz -o $(NAME)
 
 clean :
-	@rm -rf $(OBJS) $(OBJS_BONUS)
+	@rm -rf $(OBJS)
 
 fclean : clean
 	@rm -rf $(NAME)
