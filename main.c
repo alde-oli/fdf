@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:32:21 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/05 22:00:23 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/08 21:46:37 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_keypress(int keycode, void *map)
 		ft_key_save(map);
 	if (keycode == 32)
 		ft_center(map);
-	if (keycode >= 49 && keycode <= 51)
+	if (keycode >= 49 && keycode <= 52)
 		ft_key_switch_proj(map, keycode);
 	if (keycode == 167)
 		ft_my_little_poney(map);
@@ -41,43 +41,21 @@ int	ft_keypress(int keycode, void *map)
 	return (0);
 }
 
-int	ft_keypress_mac(int keycode, void *map)
-{
-	printf("keycode: %d\n", keycode);
-	if (keycode == 53)
-		ft_end(map);
-	if ((keycode <= 14 && keycode >= 12) || (keycode <= 2 && keycode >= 0))
-		ft_key_rotate(keycode, map);
-	if (keycode <= 88 && keycode >= 83)
-		ft_key_translate(keycode, map);
-	if ((keycode <= 17 && keycode >= 15) || (keycode <= 5 && keycode >= 3))
-		ft_key_scale(keycode, map);
-	if (keycode == 51)
-		ft_key_reset(map);
-	if (keycode == 36)
-		ft_key_save(map);
-	if (keycode == 49)
-		ft_center(map);
-	if (keycode >= 18 && keycode <= 21)
-		ft_key_switch_proj(map, keycode);
-	if (keycode == 35)
-		ft_my_little_poney(map);
-	if (keycode == 9)
-		ft_change_map(map);
-	return (0);
-}
-
 int	main(int argc, char **argv)
 {
 	t_map	*map;
 
-	if (argc != 2)
+	if (!(argc == 2 || argc == 4))
 	{
-		write(2, "Error, too many arguments\n", 27);
-		return (0);
+		write(2, "Error, please add just one file as argument,\n", 46);
+		write(2, "or two more arguments as window dimentions\n", 44);
+		return (1);
 	}
 	ft_check_file(argv[1]);
-	map = ft_get_map(argv[1], 1000, 1000);
+	if (argc == 2)
+		map = ft_get_map(argv[1], 1000, 1000);
+	else
+		map = ft_get_map(argv[1], ft_atoi(argv[2]), ft_atoi(argv[3]));
 	if (!map)
 		ft_error(map, 'a');
 	mlx_hook(map->mlx.win, 17, 0, ft_end, map);

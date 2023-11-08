@@ -6,18 +6,13 @@ CFLAGS = -Wall -Werror -Wextra
 MINILIBX_FLAGS	= -lmlx -lXext -lX11
 
 SRC = $(wildcard fcts_*/*.c) $(wildcard get_next_line/*.c) main.c
-SRC_BONUS = $(wildcard fcts_*/*.c) $(wildcard get_next_line/*.c) main_bonus.c
 
 OBJS = $(SRC:.c=.o)
-OBJS_BONUS = $(SRC_BONUS:.c=.o)
 	
 %.o: %.c
 	$(CC) $(CFLAGS) -g -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 all : $(NAME)
-
-bonus : $(OBJS_BONUS)
-	$(CC) $(OBJS_BONUS) -g -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 ${NAME}: ${OBJS}
 	$(CC) $(OBJS) -g -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
@@ -30,4 +25,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re
