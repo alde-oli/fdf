@@ -12,6 +12,13 @@ Beyond the core requirements, I have integrated an array of advanced features to
 - **Map Management**: Features include centering the map, resetting it to the last saved state (defaulting to the original state), and dynamically switching between maps by entering a new map name.
 - **Special Option**: An exclusive rainbow effect feature adds a splash of color and creativity to the rendering.
 
+## Usage
+
+The program is executed as follows:
+```
+./fdf file_path/file.fdf
+```
+
 ## Controls (AZERTY Keyboard on Linux)
 - **Rotation**: A/Q (X-axis), Z/S (Y-axis), E/D (Z-axis)
 - **Scaling**: U/J (X-axis), I/K (Y-axis), O/L (Z-axis)
