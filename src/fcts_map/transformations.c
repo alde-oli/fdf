@@ -6,11 +6,11 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 10:33:51 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/03 09:56:22 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/08 22:20:52 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "fdf.h"
 
 void	ft_rotate(t_map *map, double angle, char axis)
 {

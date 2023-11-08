@@ -6,11 +6,11 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 11:17:08 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/05 19:18:40 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/08 22:16:37 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "fdf.h"
 
 static void	ft_print_content_error(void)
 {

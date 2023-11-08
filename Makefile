@@ -3,19 +3,20 @@ NAME = fdf
 CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra
-MINILIBX_FLAGS	= -lmlx -lXext -lX11
+MINILIBX_FLAGS = -lmlx -lXext -lX11
+INCLUDES = -I include
 
-SRC = $(wildcard fcts_*/*.c) $(wildcard get_next_line/*.c) main.c
+SRC = $(wildcard src/*/*.c) $(wildcard src/*.c) $(wildcard get_next_line/*.c)
 
 OBJS = $(SRC:.c=.o)
-	
+    
 %.o: %.c
-	$(CC) $(CFLAGS) -g -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	@$(CC) $(CFLAGS) -g -I/usr/include $(INCLUDES) -Imlx_linux -O3 -c $< -o $@
 
 all : $(NAME)
 
-${NAME}: ${OBJS}
-	$(CC) $(OBJS) -g -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+$(NAME): $(OBJS)
+	@$(CC) $(OBJS) -g -Lmlx_linux -lmlx_Linux -L/usr/lib $(INCLUDES) -lXext -lX11 -lm -lz -o $(NAME)
 
 clean :
 	@rm -rf $(OBJS) $(OBJS_BONUS)

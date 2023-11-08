@@ -6,11 +6,11 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:25:29 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/02 11:13:08 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/08 22:28:33 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "fdf.h"
 
 void	ft_rotate_u(t_point *point, double angle, char axis)
 {

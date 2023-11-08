@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/05 21:39:36 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/08 22:34:09 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,9 @@ void	ft_map_copy(t_point **tab_from,
 void	ft_check_file(char *file);
 //
 //draw_map
-void	ft_draw_map(t_map *map);
+int		ft_gradient(int start, int end, double percentage);
+void	ft_draw_vertical(t_map *map, t_point p1, t_point p2);
+int		ft_get_steps(t_point p1, t_point p2);
 void	ft_push_map(t_map *map);
 //projection
 double	ft_calculate_focal_length(t_map *map);

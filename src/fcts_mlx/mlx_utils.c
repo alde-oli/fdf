@@ -6,11 +6,11 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/05 16:01:15 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/08 22:27:53 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "fdf.h"
 
 void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
 {

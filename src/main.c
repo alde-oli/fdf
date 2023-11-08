@@ -6,11 +6,11 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:32:21 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/08 21:46:37 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/08 22:21:58 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/fdf.h"
+#include "fdf.h"
 
 int	ft_keypress(int keycode, void *map)
 {

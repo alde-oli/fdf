@@ -6,11 +6,11 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 11:35:56 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/05 23:20:49 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/08 22:28:26 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "fdf.h"
 
 static int	ft_shift_color(int current_color)
 {
@@ -77,6 +77,7 @@ double	ft_rand_scale(void)
 	return (scale / 100);
 }
 
+//rand is illegal in 42, but this is github and tho power of my little poney is too strong to be contained by the norminette
 void	ft_my_little_poney(t_map *map)
 {
 	ft_color_fade(map);

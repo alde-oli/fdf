@@ -6,11 +6,11 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/05 16:02:03 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/08 22:21:43 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "fdf.h"
 
 int	ft_atoi(char *str)
 {
