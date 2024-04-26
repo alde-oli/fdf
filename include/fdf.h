@@ -6,7 +6,7 @@
 /*   By: alde-oli <alde-oli@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:56:28 by alde-oli          #+#    #+#             */
-/*   Updated: 2023/11/08 22:34:09 by alde-oli         ###   ########.fr       */
+/*   Updated: 2023/11/06 09:57:23 by alde-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,11 @@ void	ft_check_file(char *file);
 int		ft_gradient(int start, int end, double percentage);
 void	ft_draw_vertical(t_map *map, t_point p1, t_point p2);
 int		ft_get_steps(t_point p1, t_point p2);
+double	ft_get_percentage(int current, int start, int end, int steps);
+void	ft_draw_gradient_line(t_map *map, t_point p1, t_point p2, int steps);
 void	ft_push_map(t_map *map);
 //projection
-double	ft_calculate_focal_length(t_map *map);
 void	ft_project_tri(t_point *pt, int screen_w, int screen_h);
-void	ft_project_persp(t_point *pt, int screen_w,
-			int screen_h, double focal_length);
 void	ft_project_iso(t_point *pt, int screen_w, int screen_h);
 void	ft_project_ortho(t_point *pt, int screen_w, int screen_h);
 void	ft_project(t_map *map);

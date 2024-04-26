@@ -3,27 +3,35 @@ NAME = fdf
 CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra
-MINILIBX_FLAGS = -lmlx -lXext -lX11
-INCLUDES = -I include
+MINILIBX_FLAGS	= -lmlx -lXext -lX11
 
-SRC = $(wildcard src/*/*.c) $(wildcard src/*.c) $(wildcard get_next_line/*.c)
+SRC = $(wildcard fcts_*/*.c) $(wildcard get_next_line/*.c) main.c
+SRC_BONUS = $(wildcard fcts_*/*.c) $(wildcard get_next_line/*.c) main_bonus.c
 
 OBJS = $(SRC:.c=.o)
-    
+OBJS_BONUS = $(SRC_BONUS:.c=.o)
+	
 %.o: %.c
-	@$(CC) $(CFLAGS) -g -I/usr/include $(INCLUDES) -Imlx_linux -O3 -c $< -o $@
+	@$(CC) $(CFLAGS) -Imlx -c $< -o $@
+
+libmlx:
+	@make -C ./mlx
 
 all : $(NAME)
 
-$(NAME): $(OBJS)
-	@$(CC) $(OBJS) -g -Lmlx_linux -lmlx_Linux -L/usr/lib $(INCLUDES) -lXext -lX11 -lm -lz -o $(NAME)
+bonus: libmlx ${OBJS_BONUS}
+	@${CC} -framework OpenGL -framework AppKit -Imlx ${OBJS_BONUS} -Lmlx -lmlx -o ${NAME}
+
+${NAME}: libmlx ${OBJS}
+	@${CC} -framework OpenGL -framework AppKit -Imlx ${OBJS} -Lmlx -lmlx -o ${NAME}
 
 clean :
-	@rm -rf $(OBJS)
+	@rm -rf $(OBJS) $(OBJS_BONUS)
 
 fclean : clean
 	@rm -rf $(NAME)
+	@make clean -C ./mlx
 
 re : fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re
